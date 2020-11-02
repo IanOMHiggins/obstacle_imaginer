@@ -11,49 +11,7 @@
     <param name="uav_radius" type="double" value="2." />
     <param name="ugv_radius" type="double" value="2." />
 
-    <!-- <param name="all_in_collision_duration_threshold" type="double" value="2.0" />
-    <param name="stuck_duration_threshold" type="double" value="5.0" />
-    <param name="look_ahead_age_threshold" type="double" value="0.1" />
-    <param name="stationary_distance_threshold" type="double" value="0.5" />
-    <param name="stationary_history_duration" type="double" value="10.0" />
-    <remap from="pointcloud" to="dust_filter/non_dust" /> <!-- /velodyne_cloud_registered to not use dust filter-->
-    <param name="target_frame" type="string" value="$(arg robot_name)/map" />
-    <param name="lidar_frame" type="string" value="sensor" />
-    <param name="xy_cell_count" type="int" value="50" />
-    <param name="z_cell_count" type="int" value="50" />
-    <param name="xy_cell_size" type="double" value=".1" />
-    <param name="z_cell_size" type="double" value=".1" />
-    <param name="cell_radius" type="int" value="10" />
-    <param name="yaw_mode" type="int" value="2" />
-    <param name="debug" type="bool" value="false" />
-    <param name="lidar_pose_list_size" type="int" value="3" />
-    <param name="lidar_pose_list_distance_threshold" type="double" value="0.5" />
-    <param name="z_multiplier" type="double" value="1.0" />
-    <param name="free_space_value" type="double" value="1.2" />
-    
-    <param name="trajectory_pitch" type="double" value="12." />
-    
-    <rosparam param="depth_image_topics">["/rs_up/depth/image_filtered", "/rs_down/depth/image_filtered"]</rosparam>
-    <rosparam param="camera_info_topics">["/rs_up/depth/camera_info_filtered", "/rs_down/depth/camera_info_filtered"]</rosparam>
-    
-    <remap from="uav1/points" to="dust_filter/non_dust" />
-    <remap from="range_up" to="/uav1/teraranger_one_up" />
-    <remap from="range_down" to="/uav1/teraranger_one_down" />
-    <remap from="right/camera_info" to="front_stereo/right/camera_info" />
-    <remap from="left/disparity_expanded_fg" to="front_stereo/left/disparity_expanded_fg" />
-    <remap from="left/disparity_expanded_bg" to="front_stereo/left/disparity_expanded_bg" />
-
-    <rosparam param="waypoint_topics">['landing_waypoint', 'custom_waypoint', 'basestation_joystick_waypoint', 'base_station_waypoint', 'global_planner_waypoint']</rosparam>
-    <rosparam param="waypoint_distance_thresholds">[0.1, 1.0, 0.5, 1.0, 0.5]</rosparam>
-    <rosparam param="waypoint_travel_speeds">[0.1, 0.1, 0.1, 0.5, 0.0000001]</rosparam>
-    <rosparam param="waypoint_modes">[0, 1, 0, 0, 1]</rosparam> <!-- 0 normal, 1 overshoot -->
-    
-    <param name="waypoint_score_difference_threshold" type="double" value="0.2" />
-    <param name="waypoint_overshoot_min_velocity" type="double" value="0.3" />
-    <param name="waypoint_overshoot_angle_limit" type="double" value="150." /> -->
   </node>
 
 
-  <!-- launch-prefix="valgrind --tool=callgrind --callgrind-out-file='callgrind.distance_map_local_planner.%p'" -->
-  
 </launch>
