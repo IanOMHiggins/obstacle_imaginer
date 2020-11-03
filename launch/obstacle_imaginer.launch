@@ -5,11 +5,12 @@
   
   <include file="$(find dust_filter)/launch/dust_filter.launch" />
   
-  <node name="distance_map_local_planner" pkg="distance_map_local_planner" type="distance_map_local_planner" output="screen">
-    <param name="execute_target" type="double" value="10." />
+  <node name="obstacle_imaginer" pkg="obstacle_imaginer" type="obstacle_imaginer" output="screen">
+    <param name="execute_target" type="double" value="1." />
 
     <param name="uav_radius" type="double" value="2." />
     <param name="ugv_radius" type="double" value="2." />
+    <param name="global_frame" type="string" value="map" />
 
   </node>
 

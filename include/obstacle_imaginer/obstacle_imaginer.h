@@ -40,10 +40,12 @@
 // #include <ros/callback_queue.h>
 //#include <mutex>
 #include <base/BaseNode.h>
-#include <distance_map_local_planner/chunk_manager.h>
-#include <distance_map_local_planner/waypoint_manager.h>
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/PointStamped.h>
+#include <sensor_msgs/PointCloud2.h>
+#include <pcl_ros/point_cloud.h>
+#include <pcl_ros/transforms.h>
+#include <pcl_conversions/pcl_conversions.h>
 
 #include <boost/bind.hpp>
 #include <functional>
@@ -56,6 +58,7 @@ private:
   // params
   double uav_radius;
   double ugv_radius;
+  std::string global_frame;
   
   // bool debug;
   
@@ -63,24 +66,30 @@ private:
   
   // robot code:
   // 11 = R1, 12 = R2, 13 = R3, 51 = DS1, 52 = DS2, 53 = DS3, 54 = DS4
-  std::map<short, std::string> robot_codes;
-  const short ugv_lt_uav = 50;
+  std::map<const short, std::string> robot_codes;
+  short ugv_lt_uav;
+  sensor_msgs::PointCloud2 obstacles_msg;
+  pcl::PointCloud<pcl::PointXYZI> obstacles;
+  
+  //ros
 
-
-  // services
-  // ros::ServiceServer clear_map_server;
+  //tf listener
+  tf::TransformListener* listener;
   
   // publishers
   // TODO: Add waypoint_point_vis to communication_manager
+  ros::Publisher my_way_point_pub;
   ros::Publisher virtual_obstacle_pub;
 
   // subscribers
+  ros::Subscriber my_way_point_sub;
   std::vector<ros::Subscriber> odom_subs;
   std::vector<ros::Subscriber> way_point_subs;
   
   // callbacks
-  void odom_callback(const nav_msgs::Odometry& msg, short robot_code);
-  void way_point_callback(const geometry_msgs::PointStamped& msg, short robot_code);
+  void odom_callback(const nav_msgs::Odometry& msg);
+  void way_point_callback(const geometry_msgs::PointStamped& msg);
+  void my_way_point_callback(const geometry_msgs::PointStamped& msg);
   
 public:
   ObstacleImaginer(std::string node_name);
