@@ -5,7 +5,7 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   nav_msgs
   roscpp
-  rospy
+  #rospy
   sensor_msgs
   std_msgs
   tf
@@ -13,13 +13,13 @@ find_package(catkin REQUIRED COMPONENTS
   pcl_ros
   pcl_conversions
   tflib
-  vislib
-  pluginlib
+  #vislib
+  #pluginlib
   core_trajectory_msgs
-  tic_toc
+  #tic_toc
   message_filters
-  cv_bridge
-  templib
+  #cv_bridge
+  #templib
 )
 
 

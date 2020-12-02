@@ -42,6 +42,7 @@
 #include <base/BaseNode.h>
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/PointStamped.h>
+#include <geometry_msgs/Point.h>
 #include <sensor_msgs/PointCloud2.h>
 #include <pcl_ros/point_cloud.h>
 #include <pcl_ros/transforms.h>
@@ -50,6 +51,7 @@
 #include <boost/bind.hpp>
 #include <functional>
 #include <map>
+#include <cmath>
 
 class ObstacleImaginer : public BaseNode {
 private:
@@ -66,10 +68,11 @@ private:
   
   // robot code:
   // 11 = R1, 12 = R2, 13 = R3, 51 = DS1, 52 = DS2, 53 = DS3, 54 = DS4
-  std::map<const short, std::string> robot_codes;
-  short ugv_lt_uav;
+  std::map<const int, std::string> robot_codes;
+  int ugv_lt_uav;
   sensor_msgs::PointCloud2 obstacles_msg;
   pcl::PointCloud<pcl::PointXYZI> obstacles;
+  geometry_msgs::Point my_position;
   
   //ros
 
@@ -83,6 +86,7 @@ private:
 
   // subscribers
   ros::Subscriber my_way_point_sub;
+  ros::Subscriber my_odom_sub;
   std::vector<ros::Subscriber> odom_subs;
   std::vector<ros::Subscriber> way_point_subs;
   
@@ -90,6 +94,7 @@ private:
   void odom_callback(const nav_msgs::Odometry& msg);
   void way_point_callback(const geometry_msgs::PointStamped& msg);
   void my_way_point_callback(const geometry_msgs::PointStamped& msg);
+  void my_odom_callback(const nav_msgs::Odometry& msg);
   
 public:
   ObstacleImaginer(std::string node_name);

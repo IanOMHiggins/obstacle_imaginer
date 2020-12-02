@@ -7,13 +7,13 @@ ObstacleImaginer::ObstacleImaginer(std::string node_name)
 
 bool ObstacleImaginer::initialize(){
 
-  robot_codes[(short)11] = "ugv1";
-  robot_codes[(short)12] = "ugv2";
-  robot_codes[(short)13] = "ugv3";
-  robot_codes[(short)51] = "uav1";
-  robot_codes[(short)52] = "uav2";
-  robot_codes[(short)53] = "uav3";
-  robot_codes[(short)54] = "uav4";
+  robot_codes[11] = "ugv1";
+  robot_codes[12] = "ugv2";
+  robot_codes[13] = "ugv3";
+  robot_codes[51] = "uav1";
+  robot_codes[52] = "uav2";
+  robot_codes[53] = "uav3";
+  robot_codes[54] = "uav4";
   ugv_lt_uav = 50;
 
   ros::NodeHandle* nh = get_node_handle();
@@ -22,7 +22,7 @@ bool ObstacleImaginer::initialize(){
   // init params
   uav_radius = pnh->param("uav_radius", 2.);
   ugv_radius = pnh->param("ugv_radius", 2.);
-  global_frame = pnh->param("global_frame", std::string("darpa_map"));
+  global_frame = pnh->param("global_frame", std::string("map"));
 
   // init publishers
   my_way_point_pub = nh->advertise<geometry_msgs::PointStamped>("trajectory_waypoint", 1);
@@ -30,7 +30,8 @@ bool ObstacleImaginer::initialize(){
 
   // init subscribers
   my_way_point_sub = nh->subscribe("waypoint_point_vis", 1, &ObstacleImaginer::my_way_point_callback, this);
-  for (std::pair<const short, std::string>& r : robot_codes){
+  my_odom_sub = nh->subscribe("integrated_to_map", 1, &ObstacleImaginer::my_odom_callback, this);
+  for (std::pair<const int, std::string>& r : robot_codes){
     odom_subs.push_back(nh->subscribe(r.second + "/integrated_to_map", 1, &ObstacleImaginer::odom_callback, this));
     way_point_subs.push_back(nh->subscribe(r.second + "/trajectory_waypoint", 1, 
       &ObstacleImaginer::way_point_callback, this));
@@ -61,7 +62,11 @@ void ObstacleImaginer::odom_callback(const nav_msgs::Odometry& msg){
   point.x = msg.pose.pose.position.x;
   point.y = msg.pose.pose.position.y;
   point.z = msg.pose.pose.position.z;
-  point.intensity = uav_radius;
+  
+  point.intensity = pow(pow(point.x - my_position.x, 2) + pow(point.y - my_position.y, 2), 0.5);
+  if (point.intensity > 2*uav_radius)
+    point.intensity = uav_radius;
+
   obstacles.points.push_back(point);
 
 }
@@ -73,7 +78,11 @@ void ObstacleImaginer::way_point_callback(const geometry_msgs::PointStamped& msg
   point.x = msg.point.x;
   point.y = msg.point.y;
   point.z = msg.point.z;
-  point.intensity = uav_radius;
+
+  point.intensity = pow(pow(point.x - my_position.x, 2) + pow(point.y - my_position.y, 2), 0.5);
+  if (point.intensity > 2*uav_radius)
+    point.intensity = uav_radius;
+
   obstacles.points.push_back(point);
   
 }
@@ -94,6 +103,13 @@ void ObstacleImaginer::my_way_point_callback(const geometry_msgs::PointStamped& 
       ROS_ERROR_STREAM("TransformException while transforming my waypoint_point_vis: " << ex.what());
     }
 
+}
+void ObstacleImaginer::my_odom_callback(const nav_msgs::Odometry& msg){
+
+  my_position.x = msg.pose.pose.position.x;
+  my_position.y = msg.pose.pose.position.y;
+  my_position.z = msg.pose.pose.position.z;
+  
 }
 
 ObstacleImaginer::~ObstacleImaginer(){

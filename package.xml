@@ -52,7 +52,7 @@
   <build_depend>geometry_msgs</build_depend>
   <build_depend>nav_msgs</build_depend>
   <build_depend>roscpp</build_depend>
-  <build_depend>rospy</build_depend>
+  <!-- <build_depend>rospy</build_depend> -->
   <build_depend>sensor_msgs</build_depend>
   <build_depend>std_msgs</build_depend>
   <build_depend>tf</build_depend>
@@ -60,18 +60,35 @@
   <build_depend>pcl_ros</build_depend>
   <build_depend>pcl_conversions</build_depend>
   <build_depend>tflib</build_depend>
-  <build_depend>vislib</build_depend>
-  <build_depend>pluginlib</build_depend>
+  <!-- <build_depend>vislib</build_depend> -->
+  <!-- <build_depend>pluginlib</build_depend> -->
   <build_depend>core_trajectory_msgs</build_depend>
-  <build_depend>tic_toc</build_depend>
+  <!-- <build_depend>tic_toc</build_depend> -->
   <build_depend>message_filters</build_depend>
-  <build_depend>cv_bridge</build_depend>
-  <build_depend>templib</build_depend>
-  
+  <!-- <build_depend>cv_bridge</build_depend> -->
+  <!-- <build_depend>templib</build_depend> -->
+    geometry_msgs
+  nav_msgs
+  roscpp
+  #rospy
+  sensor_msgs
+  std_msgs
+  tf
+  visualization_msgs
+  pcl_ros
+  pcl_conversions
+  tflib
+  #vislib
+  #pluginlib
+  core_trajectory_msgs
+  #tic_toc
+  #message_filters
+  #cv_bridge
+  #templib
   <build_export_depend>geometry_msgs</build_export_depend>
   <build_export_depend>nav_msgs</build_export_depend>
   <build_export_depend>roscpp</build_export_depend>
-  <build_export_depend>rospy</build_export_depend>
+  <!-- <build_export_depend>rospy</build_export_depend> -->
   <build_export_depend>sensor_msgs</build_export_depend>
   <build_export_depend>std_msgs</build_export_depend>
   <build_export_depend>tf</build_export_depend>
@@ -79,18 +96,18 @@
   <build_export_depend>pcl_ros</build_export_depend>
   <build_export_depend>pcl_conversions</build_export_depend>
   <build_export_depend>tflib</build_export_depend>
-  <build_export_depend>vislib</build_export_depend>
-  <build_export_depend>pluginlib</build_export_depend>
+  <!-- <build_export_depend>vislib</build_export_depend> -->
+  <!-- <build_export_depend>pluginlib</build_export_depend> -->
   <build_export_depend>core_trajectory_msgs</build_export_depend>
-  <build_export_depend>tic_toc</build_export_depend>
+  <!-- <build_export_depend>tic_toc</build_export_depend> -->
   <build_export_depend>message_filters</build_export_depend>
-  <build_export_depend>cv_bridge</build_export_depend>
-  <build_export_depend>templib</build_export_depend>
+  <!-- <build_export_depend>cv_bridge</build_export_depend> -->
+  <!-- <build_export_depend>templib</build_export_depend> -->
   
   <exec_depend>geometry_msgs</exec_depend>
   <exec_depend>nav_msgs</exec_depend>
   <exec_depend>roscpp</exec_depend>
-  <exec_depend>rospy</exec_depend>
+  <!-- <exec_depend>rospy</exec_depend> -->
   <exec_depend>sensor_msgs</exec_depend>
   <exec_depend>std_msgs</exec_depend>
   <exec_depend>tf</exec_depend>
@@ -98,13 +115,13 @@
   <exec_depend>pcl_ros</exec_depend>
   <exec_depend>pcl_conversions</exec_depend>
   <exec_depend>tflib</exec_depend>
-  <exec_depend>vislib</exec_depend>
-  <exec_depend>pluginlib</exec_depend>
+  <!-- <exec_depend>vislib</exec_depend> -->
+  <!-- <exec_depend>pluginlib</exec_depend> -->
   <exec_depend>core_trajectory_msgs</exec_depend>
-  <exec_depend>tic_toc</exec_depend>
+  <!-- <exec_depend>tic_toc</exec_depend> -->
   <exec_depend>message_filters</exec_depend>
-  <exec_depend>cv_bridge</exec_depend>
-  <exec_depend>templib</exec_depend>
+  <!-- <exec_depend>cv_bridge</exec_depend> -->
+  <!-- <exec_depend>templib</exec_depend> -->
   
 
 
