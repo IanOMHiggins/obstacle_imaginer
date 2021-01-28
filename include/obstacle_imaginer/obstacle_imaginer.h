@@ -61,6 +61,9 @@ private:
   double uav_radius;
   double ugv_radius;
   std::string global_frame;
+  int vanish_timeout;
+  int num_obs_per_odom:
+  double dist_per_mps;
   
   // bool debug;
   
@@ -81,17 +84,14 @@ private:
   
   // publishers
   // TODO: Add waypoint_point_vis to communication_manager
-  ros::Publisher my_way_point_pub;
   ros::Publisher virtual_obstacle_pub;
 
   // subscribers
-  ros::Subscriber my_way_point_sub;
   ros::Subscriber my_odom_sub;
   std::vector<ros::Subscriber> odom_subs;
-  std::vector<ros::Subscriber> way_point_subs;
   
   // callbacks
-  void odom_callback(const nav_msgs::Odometry& msg);
+  void other_odom_callback(const nav_msgs::Odometry& msg);
   void way_point_callback(const geometry_msgs::PointStamped& msg);
   void my_way_point_callback(const geometry_msgs::PointStamped& msg);
   void my_odom_callback(const nav_msgs::Odometry& msg);

@@ -10,7 +10,9 @@
 
     <param name="uav_radius" type="double" value="2." />
     <param name="ugv_radius" type="double" value="2." />
-    <param name="global_frame" type="string" value="map" />
+    <param name="global_frame" type="str" value="map" />
+    <param name="vanish_timeout_in_executions" type="int" value="6" />
+    <param name="dist_per_mps" type="double" value="2." />
 
   </node>
 
