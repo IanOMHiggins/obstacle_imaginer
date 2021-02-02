@@ -25,7 +25,7 @@ bool ObstacleImaginer::initialize(){
   global_frame = pnh->param("global_frame", std::string("map"));
   vanish_timeout = pnh->param("vanish_timeout_in_executions", 6);
   num_obs_per_odom = pnh->param("num_obs_per_odom", 6);
-  dist_per_mps = pnh->param("dist_per_mps", 2.0);
+  planning_horizon_seconds = pnh->param("planning_horizon_seconds", 2.0);
 
   // init publishers
   virtual_obstacle_pub = nh->advertise<sensor_msgs::PointCloud2>("virtual_obstacles", 1);
@@ -49,7 +49,6 @@ bool ObstacleImaginer::execute(){
   obstacles_msg.header.stamp = ros::Time::now();
   obstacles_msg.header.frame_id = global_frame;
 
-
   // don't send empty message for a few cycles in case of laggy comms
   if (obstacles_msg.data.size() == 0) {
     vanish_timeout_counter += 1;
@@ -70,21 +69,26 @@ bool ObstacleImaginer::execute(){
 void ObstacleImaginer::other_odom_callback(const nav_msgs::Odometry& msg){
   
   pcl::PointXYZI point;
+
+  // location
   point.x = msg.pose.pose.position.x;
   point.y = msg.pose.pose.position.y;
   point.z = msg.pose.pose.position.z;
 
-  
   point.intensity = pow(pow(point.x - my_position.x, 2) + pow(point.y - my_position.y, 2), 0.5);
-  if (point.intensity > 2*uav_radius)
+  if (point.intensity > uav_radius)
     point.intensity = uav_radius;
 
   obstacles.points.push_back(point);
 
+  // velocity
   for (int i = 0; i < num_obs_per_odom; i++){
-    point.x += msg.twist.twist.linear.x * i / num_obs_per_odom * dist_per_mps;
-    point.y += msg.twist.twist.linear.y * i / num_obs_per_odom * dist_per_mps;
-    point.z += msg.twist.twist.linear.z * i / num_obs_per_odom * dist_per_mps;
+    point.x += msg.twist.twist.linear.x * i / num_obs_per_odom * planning_horizon_seconds;
+    point.y += msg.twist.twist.linear.y * i / num_obs_per_odom * planning_horizon_seconds;
+    point.z += msg.twist.twist.linear.z * i / num_obs_per_odom * planning_horizon_seconds;
+    point.intensity = pow(pow(point.x - my_position.x, 2) + pow(point.y - my_position.y, 2), 0.5);
+    if (point.intensity > uav_radius)
+      point.intensity = uav_radius;
     obstacles.points.push_back(point);
   }
 

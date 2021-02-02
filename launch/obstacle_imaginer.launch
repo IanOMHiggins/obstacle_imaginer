@@ -11,8 +11,11 @@
     <param name="uav_radius" type="double" value="2." />
     <param name="ugv_radius" type="double" value="2." />
     <param name="global_frame" type="str" value="map" />
+
+    <!-- obstacles vanish when [value] base node executions take place with no new obstacles -->
     <param name="vanish_timeout_in_executions" type="int" value="6" />
-    <param name="dist_per_mps" type="double" value="2." />
+    <param name="planning_horizon_seconds" type="double" value="2." />
+    <param name="num_obs_per_odom" type="int" value="6" />
 
   </node>
 
